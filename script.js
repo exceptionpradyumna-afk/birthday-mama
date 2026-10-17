@@ -1,166 +1,102 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Poppins', sans-serif;
+// Sound Elements
+const popSound = document.getElementById('popSound');
+const cheerSound = document.getElementById('cheerSound');
+const cutSound = document.getElementById('cutSound');
+const bgMusic = document.getElementById('bgMusic');
+
+// Password & Name Setting (Yahan Date of Birth change kar lena)
+const CORRECT_NAME = "mama"; 
+const CORRECT_DOB = "2005-10-19"; // Yahan apni date daal dena
+
+function checkLogin() {
+  const nameInput = document.getElementById('inputName').value.trim().toLowerCase();
+  const dobInput = document.getElementById('inputDOB').value;
+  const errorMsg = document.getElementById('errorMsg');
+
+  if (nameInput.includes(CORRECT_NAME) && dobInput === CORRECT_DOB) {
+    errorMsg.style.display = 'none';
+    bgMusic.play().catch(() => console.log("Audio play allowed"));
+    nextStep(2);
+  } else {
+    errorMsg.style.display = 'block';
+  }
 }
 
-body {
-  background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 15px;
+function nextStep(stepNumber) {
+  document.querySelectorAll('.step').forEach(step => {
+    step.classList.remove('active');
+  });
+  document.getElementById('step' + stepNumber).classList.add('active');
+
+  if (stepNumber === 5) {
+    triggerParty();
+  }
 }
 
-.card {
-  background: rgba(255, 255, 255, 0.92);
-  padding: 25px 20px;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-  text-align: center;
-  width: 100%;
-  max-width: 380px;
+// Candle Blow
+function blowCandle() {
+  document.getElementById('flame').style.display = 'none';
+  cheerSound.play();
+  confetti({ particleCount: 50, spread: 60, origin: { y: 0.6 } });
+
+  document.getElementById('candleMsg').style.display = 'block';
+  document.getElementById('step2Btn').style.display = 'block';
 }
 
-.step {
-  display: none;
-  animation: fadeIn 0.4s ease-in-out;
+// Cake Cut
+function cutCake() {
+  const knife = document.getElementById('knife');
+  knife.classList.add('cut-anim');
+  cutSound.play();
+
+  setTimeout(() => {
+    cheerSound.play();
+    confetti({ particleCount: 70, spread: 80, origin: { y: 0.5 } });
+    document.getElementById('cakeMsg').style.display = 'block';
+    document.getElementById('step3Btn').style.display = 'block';
+  }, 400);
 }
 
-.step.active {
-  display: block;
+// Balloon Pop
+let poppedCount = 0;
+function popSingleBalloon(element) {
+  if (element.style.opacity === '0') return;
+
+  popSound.play();
+  confetti({ particleCount: 30, spread: 50, origin: { y: 0.6 } });
+
+  element.style.transform = 'scale(1.5)';
+  element.style.opacity = '0';
+
+  setTimeout(() => {
+    element.style.visibility = 'hidden';
+  }, 200);
+
+  poppedCount++;
+
+  if (poppedCount >= 3) {
+    setTimeout(() => {
+      document.getElementById('balloonMsg').style.display = 'block';
+      document.getElementById('step4Btn').style.display = 'block';
+    }, 400);
+  }
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+// Final Party Fireworks
+function triggerParty() {
+  cheerSound.play();
+  var count = 200;
+  var defaults = { origin: { y: 0.7 } };
 
-h1 { color: #e91e63; font-size: 22px; margin-bottom: 12px; }
-h2 { color: #333; font-size: 18px; margin-bottom: 10px; }
-p { color: #555; font-size: 14px; margin-bottom: 15px; }
+  function fire(particleRatio, opts) {
+    confetti(Object.assign({}, defaults, opts, {
+      particleCount: Math.floor(count * particleRatio)
+    }));
+  }
 
-.input-group {
-  text-align: left;
-  margin-bottom: 12px;
-}
-
-.input-group label {
-  font-size: 13px;
-  font-weight: bold;
-  color: #444;
-  display: block;
-  margin-bottom: 4px;
-}
-
-.input-group input {
-  width: 100%;
-  padding: 10px;
-  border: 2px solid #ff80ab;
-  border-radius: 10px;
-  font-size: 14px;
-  outline: none;
-}
-
-.error-text {
-  color: red;
-  font-size: 12px;
-  margin-bottom: 10px;
-}
-
-button {
-  background: linear-gradient(45deg, #e91e63, #ff4081);
-  color: white;
-  border: none;
-  padding: 11px 22px;
-  border-radius: 25px;
-  font-size: 15px;
-  font-weight: bold;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(233, 30, 99, 0.3);
-  margin-top: 10px;
-  width: 100%;
-}
-
-button:active {
-  transform: scale(0.96);
-}
-
-/* Candle & Cake Animation */
-.cake-container {
-  position: relative;
-  display: inline-block;
-  font-size: 75px;
-  cursor: pointer;
-}
-
-.flame {
-  position: absolute;
-  top: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 28px;
-  animation: blink 0.4s infinite alternate;
-}
-
-@keyframes blink {
-  from { opacity: 1; }
-  to { opacity: 0.4; }
-}
-
-.knife-container {
-  font-size: 70px;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-}
-
-.knife {
-  transition: transform 0.5s ease;
-}
-
-.knife.cut-anim {
-  transform: translateY(20px) rotate(-30deg);
-}
-
-/* Balloons Area */
-.balloon-area {
-  display: flex;
-  justify-content: space-around;
-  margin: 20px 0;
-}
-
-.balloon {
-  font-size: 60px;
-  cursor: pointer;
-  animation: float 2s infinite ease-in-out alternate;
-  transition: transform 0.2s, opacity 0.2s;
-}
-
-@keyframes float {
-  0% { transform: translateY(0px); }
-  100% { transform: translateY(-12px); }
-}
-
-.glow-text {
-  color: #e91e63;
-  text-shadow: 0 0 8px rgba(233, 30, 99, 0.4);
-}
-
-#finalMamaTitle {
-  font-size: 26px;
-  color: #673ab7;
-  margin: 10px 0;
-}
-
-.wish-card {
-  background: #fff0f5;
-  padding: 15px;
-  border-radius: 12px;
-  border: 1px dashed #e91e63;
-  margin: 15px 0;
+  fire(0.25, { spread: 26, startVelocity: 55 });
+  fire(0.2, { spread: 60 });
+  fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
+  fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2 });
+  fire(0.1, { spread: 120, startVelocity: 45 });
 }

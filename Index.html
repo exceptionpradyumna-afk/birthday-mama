@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Mama! 🎉</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Canvas Confetti Library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+
+  <!-- Audio Elements -->
+  <audio id="popSound" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3"></audio>
+  <audio id="cheerSound" src="https://assets.mixkit.co/active_storage/sfx/1435/1435-preview.mp3"></audio>
+  <audio id="cutSound" src="https://assets.mixkit.co/active_storage/sfx/2019/2019-preview.mp3"></audio>
+  <audio id="bgMusic" src="https://assets.mixkit.co/music/preview/mixkit-happy-birthday-429.mp3" loop></audio>
+
+  <div class="card">
+    
+    <!-- STEP 1: LOGIN LOCK SCREEN -->
+    <div class="step active" id="step1">
+      <h1>🔒 Secret Surprise Screen</h1>
+      <p>Kripya aage badhne ke liye apni details dalein:</p>
+      
+      <div class="input-group">
+        <label>Birthday Girl Name:</label>
+        <input type="text" id="inputName" placeholder="Enter Name (e.g., Mama)">
+      </div>
+
+      <div class="input-group">
+        <label>Date of Birth (Password):</label>
+        <input type="date" id="inputDOB">
+      </div>
+
+      <p id="errorMsg" class="error-text" style="display:none;">⚠️ Galat Name ya Password! Dobara try karein.</p>
+      <button onclick="checkLogin()">Unlock Surprise ✨</button>
+    </div>
+
+    <!-- STEP 2: CANDLE BLOW -->
+    <div class="step" id="step2">
+      <h2>🕯️ Step 1: Candle Par Tap Karke Blow Karo!</h2>
+      <p>Tap karein aur mombatti bujhayen ✨</p>
+      <div class="cake-container" onclick="blowCandle()">
+        <div class="cake">🎂</div>
+        <div id="flame" class="flame">🔥</div>
+      </div>
+      <p id="candleMsg" style="display:none; color: #ff4081; font-weight: bold; margin-top: 15px;">Mombatti bujh gayi! Make a wish ✨</p>
+      <button id="step2Btn" style="display:none;" onclick="nextStep(3)">Cake Katein 🎂 ➔</button>
+    </div>
+
+    <!-- STEP 3: CAKE CUTTING -->
+    <div class="step" id="step3">
+      <h2>🎂 Step 2: Cake Cut Karein!</h2>
+      <p>Knife (🔪) par tap karke cake katein:</p>
+      <div class="knife-container" onclick="cutCake()">
+        <span id="knife" class="knife">🔪</span>
+        <span class="cake-cut">🎂</span>
+      </div>
+      <p id="cakeMsg" style="display:none; color: #e91e63; font-weight: bold; margin-top: 15px;">Yummy! Happy Birthday 🎉</p>
+      <button id="step3Btn" style="display:none;" onclick="nextStep(4)">Balloons Pop Karein 🎈 ➔</button>
+    </div>
+
+    <!-- STEP 4: BALLOON POPPING (Touch & Pop) -->
+    <div class="step" id="step4">
+      <h2>🎈 Step 3: Balloons Ko Apne Haath Se Tap Karke Phodo!</h2>
+      <p>Sabhi 3 balloons ko touch karo:</p>
+      <div class="balloon-area">
+        <div class="balloon" onclick="popSingleBalloon(this)">🎈</div>
+        <div class="balloon" onclick="popSingleBalloon(this)" style="animation-delay: 0.5s;">🎈</div>
+        <div class="balloon" onclick="popSingleBalloon(this)" style="animation-delay: 1s;">🎈</div>
+      </div>
+      <p id="balloonMsg" style="display:none; color: #4caf50; font-weight: bold; margin-top: 15px;">Wah! Saare balloons phod diye! 🥳</p>
+      <button id="step4Btn" style="display:none;" onclick="nextStep(5)">Final Wishes 💖 ➔</button>
+    </div>
+
+    <!-- STEP 5: FINAL HAPPY BIRTHDAY MAMA WISH -->
+    <div class="step" id="step5">
+      <h1 class="glow-text">🎉 HAPPY BIRTHDAY 🎉</h1>
+      <h2 id="finalMamaTitle">MAMA 💖</h2>
+      <div class="wish-card">
+        <p class="wish-text">
+          Aap humare liye bohot special hain! Aapki zindagi hamesha khushiyon, achhi health aur kamyabi se bhari rahe. Keep smiling always! ✨🎂🥳
+        </p>
+      </div>
+      <button onclick="triggerParty()">Dobara Fireworks & Confetti! 💥</button>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -12,22 +12,17 @@
 
   <div class="card">
     
-    <!-- STEP 1: LOGIN LOCK SCREEN -->
+    <!-- STEP 1: LOGIN / NAME SCREEN -->
     <div class="step active" id="step1">
       <h1>🔒 Secret Surprise Screen</h1>
-      <p>Kripya aage badhne ke liye apni details dalein:</p>
+      <p>Aage badhne ke liye apna naam dalein:</p>
       
       <div class="input-group">
         <label>Birthday Girl Name:</label>
-        <input type="text" id="inputName" placeholder="Enter Name (e.g., Mama)">
+        <input type="text" id="inputName" placeholder="Type 'Mama' here...">
       </div>
 
-      <div class="input-group">
-        <label>Date of Birth (Password):</label>
-        <input type="date" id="inputDOB">
-      </div>
-
-      <p id="errorMsg" class="error-text" style="display:none;">⚠️ Galat Name ya Password! Dobara try karein.</p>
+      <p id="errorMsg" class="error-text" style="display:none;">⚠️ Kripya naam mein 'Mama' likhein!</p>
       <button onclick="checkLogin()">Unlock Surprise ✨</button>
     </div>
 
@@ -55,9 +50,9 @@
       <button id="step3Btn" style="display:none;" onclick="nextStep(4)">Balloons Pop Karein 🎈 ➔</button>
     </div>
 
-    <!-- STEP 4: BALLOON POPPING (Touch & Pop with Sound) -->
+    <!-- STEP 4: BALLOON POPPING -->
     <div class="step" id="step4">
-      <h2>🎈 Step 3: Balloons Ko Apne Haath Se Tap Karke Phodo!</h2>
+      <h2>🎈 Step 3: Balloons Ko Tap Karke Phodo!</h2>
       <p>Sabhi 3 balloons ko touch karo:</p>
       <div class="balloon-area">
         <div class="balloon" onclick="popSingleBalloon(this)">🎈</div>
@@ -65,5 +60,14 @@
         <div class="balloon" onclick="popSingleBalloon(this)" style="animation-delay: 1s;">🎈</div>
       </div>
       <p id="balloonMsg" style="display:none; color: #4caf50; font-weight: bold; margin-top: 15px;">Wah! Saare balloons phod diye! 🥳</p>
-      <button id="step4Btn" style="display:none;" onclick="nextStep(
-        
+      <button id="step4Btn" style="display:none;" onclick="nextStep(5)">Final Wishes 💖 ➔</button>
+    </div>
+
+    <!-- STEP 5: FINAL WISH -->
+    <div class="step" id="step5">
+      <h1 class="glow-text">🎉 HAPPY BIRTHDAY 🎉</h1>
+      <h2 id="finalMamaTitle">Meri Pyari Mehboob 💖</h2>
+      <div class="wish-card">
+        <p class="wish-text" style="line-height: 1.6; font-size: 14px; color: #333;">
+          Meri pyari, cute si, aur mere dil ki mehboob duniya! Saree
+          

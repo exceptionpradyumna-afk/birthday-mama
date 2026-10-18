@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Mama! 💖</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            font-family: 'Poppins', sans-serif, system-ui;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #ffecd2 100%);
+            color: #333;
+            min-height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .step {
+            display: none;
+            width: 100%;
+            height: 100vh;
+            position: absolute;
+            top: 0;
+            left: 0;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .step.active {
+            display: flex;
+        }
+
+        /* STEP 1: LIGHT BULB SCREEN */
+        #step-1 {
+            background: #111;
+        }
+
+        .bulb-container {
+            cursor: pointer;
+            text-align: center;
+            animation: swing 2.5s ease-in-out infinite alternate;
+        }
+
+        .bulb {
+            font-size: 85px;
+            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.3));
+            transition: all 0.3s ease;
+        }
+
+        .bulb-text {
+            margin-top: 20px;
+            color: #ff9a9e;
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        @keyframes swing {
+            0% { transform: rotate(-10deg); }
+            100% { transform: rotate(10deg); }
+        }
+
+        /* STEP 2: SECRET SURPRISE CARD */
+        #step-2 {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+        }
+
+        .secret-card {
+            background: #ffffff;
+            padding: 35px 25px;
+            border-radius: 28px;
+            width: 90%;
+            max-width: 380px;
+            box-shadow: 0 20px 40px rgba(232, 67, 147, 0.25);
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            animation: popUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popUp {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .lock-icon {
+            font-size: 38px;
+            margin-bottom: 8px;
+        }
+
+        .secret-card h2 {
+            color: #d63031;
+            font-size: 1.6rem;
+            margin-bottom: 6px;
+        }
+
+        .secret-card p {
+            color: #636e72;
+            font-size: 0.88rem;
+            margin-bottom: 22px;
+        }
+
+        .input-box {
+            text-align: left;
+            margin-bottom: 16px;
+        }
+
+        .input-box label {
+            display: block;
+            font-size: 0.85rem;
+            color: #2d3436;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .input-box input {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 14px;
+            border: 2px solid #ff7675;
+            background: #fff5f5;
+            color: #2d3436;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .unlock-btn {
+            background: linear-gradient(135deg, #ff7675, #d63031);
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 1.05rem;
+            font-weight: bold;
+            border-radius: 16px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            box-shadow: 0 8px 20px rgba(214, 48, 49, 0.35);
+        }
+
+        /* STEP 3 & 4: BALLOON POP GAME */
+        #step-3 {
+            background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
+        }
+
+        .balloon-area {
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .balloon {
+            position: absolute;
+            bottom: -100px;
+            width: 60px;
+            height: 75px;
+            border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+            cursor: pointer;
+            pointer-events: auto;
+            animation: floatUp 6s linear infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: inset -8px -8px 0px rgba(0,0,0,0.15);
+        }
+
+        .big-balloon {
+            width: 120px;
+            height: 145px;
+            background: radial-gradient(circle at 30% 30%, #ff7675, #c0392b);
+            bottom: 25%;
+            left: calc(50% - 60px);
+            animation: pulseBig 1.5s infinite alternate;
+            z-index: 10;
+            box-shadow: 0 0 25px rgba(255, 118, 117, 0.8);
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-115vh) rotate(15deg); }
+        }
+
+        @keyframes pulseBig {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.08); }
+        }
+
+        .falling-item {
+            position: absolute;
+            font-size: 2rem;
+            pointer-events: none;
+            animation: fallItem 2s linear forwards;
+            z-index: 25;
+        }
+
+        @keyframes fallItem {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(75vh) rotate(360deg); opacity: 0; }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.7);
+            width: 100vw;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-box {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 25px;
+            border: 3px solid #ff7675;
+            max-width: 85%;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            color: #333;
+        }
+
+        /* STEP 5: CAKE & CANDLE */
+        #step-5 {
+            background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+        }
+
+        .cake-container {
+            margin: 25px 0;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .cake {
+            font-size: 110px;
+        }
+
+        .flame {
+            position: absolute;
+            top: 10px;
+            left: calc(50% - 12px);
+            font-size: 32px;
+            animation: flicker 0.4s infinite alternate;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0.75; transform: scale(1.25); }
+        }
+
+        /* STEP 6: PARTY POPPER & FINAL WISH */
+        #step-6 {
+            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+        }
+
+        .popper-btn {
+            font-size: 85px;
+            cursor: pointer;
+            margin-bottom: 15px;
+            animation: bounce 1s infinite alternate;
+        }
+
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-12px); }
+        }
+
+        .final-wish-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 22px;
+            border: 2px solid #ff7675;
+            max-width: 90%;
+            line-height: 1.7;
+            font-size: 1.05rem;
+            color: #2d3436;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            display: none;
+            animation: popUp 0.8s ease;
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 99;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="canvas"></canvas>
+
+    <!-- STEP 1: Light Bulb -->
+    <div id="step-1" class="step active">
+        <div class="bulb-container" onclick="startExperience()">
+            <div class="bulb" id="bulbIcon">💡</div>
+            <div class="bulb-text">💡 Tap to Turn On & Open Surprise! ✨</div>
+        </div>
+    </div>
+
+    <!-- STEP 2: Secret Surprise Card -->
+    <div id="step-2" class="step">
+        <div class="secret-card">
+            <div class="lock-icon">🔒</div>
+            <h2>Secret Surprise Screen</h2>
+            <p>Kripya aage badhne ke liye apni details dalein:</p>
+            
+            <div class="input-box">
+                <label>Birthday Girl Name:</label>
+                <input type="text" id="nameInput" value="Mama">
+            </div>
+
+            <div class="input-box">
+                <label>Date of Birth (Password):</label>
+                <input type="text" id="dateInput" value="10/19/2005">
+            </div>
+
+            <button class="unlock-btn" onclick="verifyDetails()">Unlock Surprise ✨</button>
+            <p id="errorMsg" style="color:#d63031; font-size:0.8rem; margin-top:10px; display:none;">Galat details! Sahi naam aur date bharein.</p>
+        </div>
+    </div>
+
+    <!-- STEP 3 & 4: Balloon Pop Game & Party Celebration -->
+    <div id="step-3" class="step">
+        <div style="z-index: 10; margin-top: -30px;">
+            <div style="font-size: 2.2rem; margin-bottom: 5px;">👨‍👩‍👧‍👦 🎉 🎈</div>
+            <h2 style="color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">Family & Friends Party Celebration!</h2>
+            <p style="color: #fff; font-size: 0.9rem; margin-top: 4px;">🎈 Balloons phodein aur chocolate collect karein! 🍫</p>
+        </div>
+
+        <div class="balloon-area" id="balloonArea"></div>
+
+        <!-- Big Central Gift Balloon -->
+        <div class="balloon big-balloon" onclick="popBigBalloon(event)">
+            <span style="font-size: 2rem;">🎁</span>
+        </div>
+    </div>
+
+    <!-- Big Balloon Modal Wish -->
+    <div class="modal" id="wishModal">
+        <div class="modal-box">
+            <h2 style="color: #d63031; font-size: 1.8rem; margin-bottom: 8px;">💖 HAPPY BIRTHDAY MAMA! 💖</h2>
+            <p style="color: #636e72; font-size: 1rem; margin-bottom: 20px;">Aap hum sab ki sabse pyari Mama ho! ✨</p>
+            <button class="unlock-btn" onclick="goToCake()">Aao Cake Kat-te Hain! 🎂</button>
+        </div>
+    </div>
+
+    <!-- STEP 5: Cake & Candle Blowing -->
+    <div id="step-5" class="step">
+        <h2 style="color: #2d3436; margin-bottom: 5px;">🎂 Cake Cutting Celebration!</h2>
+        <p style="color: #636e72; font-size: 0.9rem;">Candle par tap karke candle bujhaiye! 🕯️</p>
+
+        <div class="cake-container" onclick="blowCandle()">
+            <div class="flame" id="flame">🔥</div>
+            <div class="cake">🎂</div>
+        </div>
+
+        <p id="familyCheer" style="color: #d63031; font-size: 1.2rem; font-weight: bold; display: none; margin-top: 10px;">
+            🎉 Bachon aur Family ki taraf se: HAPPY BIRTHDAY MAMA! 🥳👏
+        </p>
+
+        <button class="unlock-btn" id="nextBtn" style="display: none; max-width: 240px; margin-top: 15px;" onclick="goToFinal()">Aage Badhein ➡️</button>
+    </div>
+
+    <!-- STEP 6: Party Popper & Final Wish -->
+    <div id="step-6" class="step">
+        <div class="popper-btn" onclick="blastPopper()">🎉</div>
+        <p id="popperHint" style="color: #d63031; font-weight: 600; margin-bottom: 20px;">Party Popper par tap karke BOOM karein! 💥</p>
+
+        <div class="final-wish-card" id="finalCard">
+            <h2 style="color: #d63031; margin-bottom: 12px;">❤️ Special Dedication For Mama ❤️</h2>
+            <p style="font-weight: 500;">
+                Aap hamesha khush raho, zindagibhar aapke saath rahunga!<br><br>
+                <strong>Happy Birthday Mama! 🎂✨💖</strong>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        let isMusicPlaying = false;
+
+        // 🎵 Continuous "Happy Birthday to You" Music Synthesizer (Loops automatically)
+        function playContinuousHappyBirthdaySong() {
+            if (isMusicPlaying) return;
+            isMusicPlaying = true;
+
+            const notes = [
+                {n: 264, d: 0.4}, {n: 264, d: 0.2}, {n: 297, d: 0.6}, {n: 264, d: 0.6}, {n: 352, d: 0.6}, {n: 330, d: 1.2},
+                {n: 264, d: 0.4}, {n: 264, d: 0.2}, {n: 297, d: 0.6}, {n: 264, d: 0.6}, {n: 396, d: 0.6}, {n: 352, d: 1.2},
+                {n: 264, d: 0.4}, {n: 264, d: 0.2}, {n: 528, d: 0.6}, {n: 440, d: 0.6}, {n: 352, d: 0.6}, {n: 330, d: 0.6}, {n: 297, d: 1.2},
+                {n: 466, d: 0.4}, {n: 466, d: 0.2}, {n: 440, d: 0.6}, {n: 352, d: 0.6}, {n: 396, d: 0.6}, {n: 352, d: 1.5}
+            ];
+
+            function loopSong() {
+                let time = audioCtx.currentTime;
+                let totalDuration = 0;
+
+                notes.forEach(note => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(note.n, time);
+                    gain.gain.setValueAtTime(0.12, time);
+                    gain.gain.exponentialRampToValueAtTime(0.001, time + note.d);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(time);
+                    osc.stop(time + note.d);
+                    time += note.d + 0.05;
+                    totalDuration += note.d + 0.05;
+                });
+
+                // Loop song continuously
+                setTimeout(loopSong, totalDuration * 1000);
+            }
+
+            loopSong();
+        }
+
+        // Pop Sound Effect for Balloons
+        function playPopSound() {
+            try {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(200, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(40, audioCtx.currentTime + 0.08);
+                gain.gain.setValueAtTime(1, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.08);
+            } catch(e){}
+        }
+
+        // Boom Sound Effect for Party Popper & Big Balloon
+        function playBoomSound() {
+            try {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(120, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(20, audioCtx.currentTime + 0.4);
+                gain.gain.setValueAtTime(1, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.4);
+            } catch(e){}
+        }
+
+        // STEP 1 -> STEP 2
+        function startExperience() {
+            playPopSound();
+            playContinuousHappyBirthdaySong();
+            document.getElementById('bulbIcon').style.filter = "drop-shadow(0 0 35px #ffeaa7)";
+            document.getElementById('bulbIcon').style.transform = "scale(1.25)";
+            setTimeout(() => {
+                showStep('step-2');
+            }, 600);
+        }
+
+        // STEP 2 Verification
+        function verifyDetails() {
+            const name = document.getElementById('nameInput').value.trim();
+            const date = document.getElementById('dateInput').value.trim();
+
+            if (name.toLowerCase() === "mama" && (date === "10/19/2005" || date === "19/10/2005" || date === "19")) {
+                playPopSound();
+                showStep('step-3');
+                startBalloons();
+            } else {
+                document.getElementById('errorMsg').style.display = 'block';
+            }
+        }
+
+        function showStep(stepId) {
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            document.getElementById(stepId).classList.add('active');
+        }
+
+        // STEP 3: Balloon Game
+        let balloonInterval;
+        function startBalloons() {
+            const area = document.getElementById('balloonArea');
+            const colors = ['#ff7675', '#74b9ff', '#55efc4', '#fdcb6e', '#a29bfe', '#fab1a0'];
+            
+            balloonInterval = setInterval(() => {
+                const b = document.createElement('div');
+                b.className = 'balloon';
+                const col = colors[Math.floor(Math.random() * colors.length)];
+                b.style.backgroundColor = col;
+                b.style.left = Math.random() * 80 + 10 + 'vw';
+                b.style.animationDuration = (Math.random() * 2 + 5) + 's';
+
+                b.onclick = (e) => {
+                    playPopSound();
+                    createParticles(e.clientX, e.clientY, col);
+                    if (Math.random() > 0.4) {
+                        dropChocolate(e.clientX, e.clientY);
+                    }
+                    b.remove();
+                };
+
+                area.appendChild(b);
+                setTimeout(() => b.remove(), 7000);
+            }, 750);
+        }
+
+        function dropChocolate(x, y) {
+            const choc = document.createElement('div');
+            choc.className = 'falling-item';
+            choc.innerText = '🍫';
+            choc.style.left = x + 'px';
+            choc.style.top = y + 'px';
+            document.body.appendChild(choc);
+            setTimeout(() => choc.remove(), 2000);
+        }
+
+        function popBigBalloon(e) {
+            playBoomSound();
+            createParticles(e.clientX, e.clientY, '#ff7675', 45);
+            clearInterval(balloonInterval);
+            document.getElementById('wishModal').style.display = 'flex';
+        }
+
+        function goToCake() {
+            document.getElementById('wishModal').style.display = 'none';
+            showStep('step-5');
+        }
+
+        // STEP 5: Blow Candle
+        function blowCandle() {
+            const flame = document.getElementById('flame');
+            if (flame.style.display !== 'none') {
+                flame.style.display = 'none';
+                playPopSound();
+                document.getElementById('familyCheer').style.display = 'block';
+                createParticles(window.innerWidth/2, window.innerHeight/2, '#fdcb6e', 50);
+                document.getElementById('nextBtn').style.display = 'inline-block';
+            }
+        }
+
+        function goToFinal() {
+            showStep('step-6');
+        }
+
+        // STEP 6: Party Popper
+        function blastPopper() {
+            playBoomSound();
+            for(let i = 0; i < 90; i++) {
+                setTimeout(() => {
+                    createParticles(
+                        Math.random() * window.innerWidth, 
+                        Math.random() * window.innerHeight, 
+                        ['#ff7675','#74b9ff','#55efc4','#fdcb6e','#fab1a0'][Math.floor(Math.random()*5)]
+                    );
+                }, i * 20);
+            }
+            setTimeout(() => {
+                document.getElementById('finalCard').style.display = 'block';
+                document.getElementById('popperHint').style.display = 'none';
+            }, 400);
+        }
+
+        // Confetti Canvas Engine
+        const canvas = document.getElemen

@@ -1,4 +1,4 @@
-// Web Audio API Synthesis for Mobile-Friendly Instant Sound Effects
+// Instant Web Audio Sound Effects
 function playPopSound() {
   try {
     const ctx = new (window.AudioContext || window.webkitAudioContext)();
@@ -51,16 +51,12 @@ function playCutSound() {
   } catch(e) {}
 }
 
-// Password & Name Setting
-const CORRECT_NAME = "mama"; 
-const CORRECT_DOB = "2005-10-19"; 
-
+// Simple Name Check
 function checkLogin() {
   const nameInput = document.getElementById('inputName').value.trim().toLowerCase();
-  const dobInput = document.getElementById('inputDOB').value;
   const errorMsg = document.getElementById('errorMsg');
 
-  if (nameInput.includes(CORRECT_NAME) && dobInput === CORRECT_DOB) {
+  if (nameInput.includes("mama")) {
     errorMsg.style.display = 'none';
     playCheerSound();
     nextStep(2);
